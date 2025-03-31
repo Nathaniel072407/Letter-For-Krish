@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        /* Global Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fce4ec;
+            color: #4a148c;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #f06292, #f8bbd0);
+            animation: backgroundMove 5s linear infinite;
+        }
+
+        .landing-container {
+            text-align: center;
+            animation: fadeIn 2s forwards;
+            opacity: 0;
+            width: 90%;
+            max-width: 600px; /* Ensuring max-width for large screens */
+            padding: 20px;
+        }
+
+        .landing-container h1 {
+            color: #d81b60;
+            font-size: 8vw; /* Responsive font size */
+            margin-bottom: 20px;
+            font-style: italic;
+            animation: typing 3s steps(30) forwards;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .landing-container p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .tap-button {
+            font-size: 1.5em;
+            color: #fff;
+            background-color: #ad1457;
+            padding: 15px 40px;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: none;
+            animation: zoomIn 1.5s ease-out 1s forwards;
+        }
+
+        .tap-button:hover {
+            background-color: #f06292;
+            transform: scale(1.1);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes typing {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes backgroundMove {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        /* Media Queries for Responsiveness */
+        @media screen and (max-width: 768px) {
+            .landing-container h1 {
+                font-size: 10vw; /* Larger font for smaller screens */
+            }
+
+            .landing-container p {
+                font-size: 1.2em;
+                padding: 0 10px; /* Padding for smaller screens */
+            }
+
+            .tap-button {
+                padding: 12px 35px; /* Smaller button size on mobile */
+                font-size: 1.2em; /* Adjust button font size */
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .landing-container h1 {
+                font-size: 12vw; /* Larger font for very small screens */
+            }
+
+            .landing-container p {
+                font-size: 1em;
+                padding: 0 10px; /* More padding for very small screens */
+            }
+
+            .tap-button {
+                padding: 10px 30px; /* Smaller button size on mobile */
+                font-size: 1.1em;
+            }
+        }
+
+        @media screen and (min-width: 1024px) {
+            .landing-container h1 {
+                font-size: 5vw; /* Slightly smaller font for larger screens */
+            }
+
+            .landing-container p {
+                font-size: 1.4em;
+            }
+
+            .tap-button {
+                padding: 18px 50px; /* Larger button for large screens */
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-container">
+        <h1>Welcome, Conjin!</h1>
+        <h2> What a unique and nice last name!</h2>
+        <p>Tap the button to enter the world of appreciation and quick reminders. But first, you need to play a game. Catch the circles up to 10, and if you miss 5, it's game over. Good luck!</p>
+        <button class="tap-button" id="tapButton">Tap to Enter</button>
+    </div>
+
+    <script>
+        // Adding click event to trigger the transition and navigate
+        document.getElementById('tapButton').addEventListener('click', function() {
+            // Optional: Add a delay for a smooth transition before redirecting
+            document.body.style.transition = "background 1s ease-in-out";
+            document.body.style.backgroundColor = "#ffffff"; // Fade to white as a smooth effect
+
+            setTimeout(function() {
+                alert("Are you sure you want to continue?");
+                window.location.href = 'catch the roses.html'; // Redirect to the next game page
+            }, 1000); // Delay before redirecting
+        });
+    </script>
+</body>
+</html>

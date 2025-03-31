@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter For You Using Code and Designs with Animation</title>
+    <style>
+        /* Global Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fce4ec;
+            color: #4a148c;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(to right, #f06292, #f8bbd0);
+            animation: backgroundMove 5s linear infinite;
+        }
+
+        .letter-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        .letter-box {
+            background: white;
+            padding: 40px;
+            width: 350px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-family: 'Georgia', serif;
+            transform: rotate(-5deg);
+            opacity: 0;
+            animation: zoomIn 1.5s ease-out 0.5s forwards, rotateIn 1.5s ease-out 0.5s forwards;
+        }
+
+        h1 {
+            color: #d81b60;
+            font-size: 30px;
+            font-style: italic;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: typing 3s steps(30) forwards;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #880e4f;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInText 2s forwards;
+            animation-delay: 1s;
+        }
+
+        .signature {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ad1457;
+            margin-top: 40px;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeInText 2s forwards;
+            animation-delay: 1.5s;
+            cursor: pointer;
+        }
+
+        .signature:hover {
+            color: #f06292;
+            transform: scale(1.1);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .flower {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: #ff4081;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: flowerBounce 2s ease-in-out infinite, glowFlower 1.5s alternate infinite;
+            cursor: pointer;
+        }
+
+        .flower::before {
+            content: "";
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 25px;
+            height: 25px;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+
+        .flower:hover {
+            transform: scale(1.2);
+            animation: flowerHover 0.5s forwards;
+        }
+
+        .decorative-lines {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .decorative-line {
+            width: 50px;
+            height: 3px;
+            background-color: #d81b60;
+            border-radius: 5px;
+            opacity: 0;
+            animation: lineFadeIn 2s forwards;
+        }
+
+        .decorative-line:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+
+        .decorative-line:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .next-button {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #ad1457;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: none;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .next-button:hover {
+            background-color: #f06292;
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes typing {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes rotateIn {
+            0% {
+                transform: rotate(-5deg);
+            }
+            100% {
+                transform: rotate(0);
+            }
+        }
+
+        @keyframes flowerBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes glowFlower {
+            0% {
+                box-shadow: 0 0 10px #ff4081, 0 0 20px #ff4081, 0 0 30px #ff4081;
+            }
+            100% {
+                box-shadow: 0 0 15px #ff4081, 0 0 25px #ff4081, 0 0 40px #ff4081;
+            }
+        }
+
+        @keyframes flowerHover {
+            0% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes lineFadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes backgroundMove {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="letter-container">
+        <div class="letter-box">
+            <h1 id="letter-title">Hello, Lovely One!</h1>
+            <p id="letter-text">Just a quick note to remind you that you are amazing and capable of achieving everything you set your mind to! Keep shining, keep believing in yourself. The world needs your light!</p>
+            
+            <div class="decorative-lines">
+                <div class="decorative-line"></div>
+                <div class="decorative-line"></div>
+            </div>
+            
+            <p class="signature">With Efforts, Nat'z 💖</p>
+            <div class="flower"></div>
+            
+            <button class="next-button" id="nextButton">Next Letter</button>
+        </div>
+    </div>
+
+    <script>
+        const nextButton = document.getElementById('nextButton');
+        const letterTitle = document.getElementById('letter-title');
+        const letterText = document.getElementById('letter-text');
+        
+        const letters = [
+            {
+                title: "Hello, Lovely One!",
+                text: "Just a quick note to remind you that you are amazing and capable of achieving everything you set your mind to! Keep shining, keep believing in yourself. The world needs your light!"
+            },
+            {
+                title: "You're an Inspiration!",
+                text: "Every step you take is a step closer to achieving your dreams. Keep moving forward and never let fear stop you. The world is yours to conquer!"
+            },
+            {
+                title: "Keep Going, Never Stop!",
+                text: "Success comes to those who never give up. You're doing amazing things, keep pushing your limits and embracing every challenge and don't forget to thank God."
+            }
+        ];
+        
+        let currentLetterIndex = 0;
+        let clickCount = 0;
+        
+        nextButton.addEventListener('click', () => {
+            clickCount++;
+            currentLetterIndex++;
+            if (currentLetterIndex >= letters.length) {
+                currentLetterIndex = 0; // Reset to the first letter
+            }
+            letterTitle.innerHTML = letters[currentLetterIndex].title;
+            letterText.innerHTML = letters[currentLetterIndex].text;
+
+            if (clickCount >= 3) {
+                // After 3 clicks, redirect to main letter
+                window.location.href = 'main-letter.html';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Falling Circles</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fce4ec;
+            color: #4a148c;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #f06292, #f8bbd0);
+        }
+
+        #gameCanvas {
+            border: 3px solid #ad1457;
+            background-color: #fff;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .game-over, .game-win {
+            text-align: center;
+            color: #d81b60;
+            font-size: 30px;
+            display: none;
+        }
+
+        .score-board {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="gameCanvas" width="400" height="600"></canvas>
+    <div class="score-board">Score: <span id="score">0</span></div>
+    <div class="game-over">Game Over! You did your best!</div>
+    <div class="game-win">You won! Congratulations! Now you can proceed! 🎉</div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreDisplay = document.getElementById('score');
+        const gameOverMessage = document.querySelector('.game-over');
+        const gameWinMessage = document.querySelector('.game-win');
+
+        const basket = {
+            width: 70,
+            height: 20,
+            x: canvas.width / 2 - 35,
+            speed: 5
+        };
+
+        let rose = {
+            x: Math.random() * canvas.width,
+            y: -20,
+            radius: 15,
+            speed: 4 // Initial speed of falling rose (increased to make it faster)
+        };
+
+        let score = 0;
+        let missedRoses = 0;
+
+        // Variables for touch control
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        // Keyboard control
+        let leftPressed = false;
+        let rightPressed = false;
+
+        // Keyboard event listeners for PC
+        window.addEventListener('keydown', function(event) {
+            if (event.key === "ArrowLeft") {
+                leftPressed = true;
+            } else if (event.key === "ArrowRight") {
+                rightPressed = true;
+            }
+        });
+
+        window.addEventListener('keyup', function(event) {
+            if (event.key === "ArrowLeft") {
+                leftPressed = false;
+            } else if (event.key === "ArrowRight") {
+                rightPressed = false;
+            }
+        });
+
+        // Touch event listeners for mobile
+        canvas.addEventListener('touchstart', function(event) {
+            touchStartX = event.touches[0].clientX;
+        });
+
+        canvas.addEventListener('touchmove', function(event) {
+            touchEndX = event.touches[0].clientX;
+            let diff = touchEndX - touchStartX;
+
+            // Move the basket based on touch movement
+            if (diff > 0 && basket.x < canvas.width - basket.width) {
+                basket.x += basket.speed;
+            } else if (diff < 0 && basket.x > 0) {
+                basket.x -= basket.speed;
+            }
+
+            // Update the touch start point for smooth movement
+            touchStartX = touchEndX;
+        });
+
+        function drawBasket() {
+            ctx.fillStyle = '#ad1457';
+            ctx.fillRect(basket.x, canvas.height - basket.height, basket.width, basket.height);
+        }
+
+        function drawRose() {
+            ctx.fillStyle = '#ff4081';
+            ctx.beginPath();
+            ctx.arc(rose.x, rose.y, rose.radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function updateRose() {
+            rose.y += rose.speed; // Update rose's position based on speed
+
+            // Gradually increase speed as the game progresses
+            if (score % 5 === 0 && rose.speed < 10) { // Increase speed every 5 points
+                rose.speed += 0.5; // Gradual increase in speed
+            }
+
+            if (rose.y > canvas.height) {
+                missedRoses++;
+                if (missedRoses >= 5) {
+                    gameOver();
+                }
+                resetRose();
+            }
+            if (rose.y + rose.radius > canvas.height - basket.height && rose.x > basket.x && rose.x < basket.x + basket.width) {
+                score++;
+                scoreDisplay.innerText = score;
+                if (score >= 10) {
+                    gameWin();
+                }
+                resetRose();
+            }
+        }
+
+        function resetRose() {
+            rose.x = Math.random() * canvas.width;
+            rose.y = -20;
+        }
+
+        function gameOver() {
+            gameOverMessage.style.display = 'block';
+            setTimeout(() => {
+                window.location.href = 'main.html'; // Redirect to index.html after game over
+            }, 2000);
+        }
+
+        function gameWin() {
+            gameWinMessage.style.display = 'block';
+            setTimeout(() => {
+                window.location.href = 'main.html'; // Redirect to index.html after game win
+            }, 2000);
+        }
+
+        function moveBasket() {
+            if (leftPressed && basket.x > 0) {
+                basket.x -= basket.speed;
+            }
+            if (rightPressed && basket.x < canvas.width - basket.width) {
+                basket.x += basket.speed;
+            }
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBasket();
+            drawRose();
+            updateRose();
+            moveBasket();
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+    </script>
+
+</body>
+</html>
